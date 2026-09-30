@@ -87,6 +87,10 @@ class ChangeTextTest {
         // Wait for launcher
         val launcherPackage = device.launcherPackageName
         device.wait(Until.hasObject(By.pkg(launcherPackage)), TIMEOUT)
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val intent = context.packageManager.getLaunchIntentForPackage(MODEL_PACKAGE)
+        context.startActivity(intent)
+        device.wait(Until.hasObject(By.res(MODEL_PACKAGE, "userInput")), TIMEOUT)
     }
 
     @Test
@@ -101,7 +105,7 @@ class ChangeTextTest {
     @Test
     fun testChangeText() {
         val packageName = MODEL_PACKAGE
-        waitForPackage(packageName)
+        //waitForPackage(packageName)
 
         device.findObject(By.res(packageName, "userInput")).text = textToSet
         device.findObject(By.res(packageName, "buttonChange")).click()
@@ -113,7 +117,7 @@ class ChangeTextTest {
     @Test
     fun testChangeTextEmptyOrSpaces() {
         val packageName = MODEL_PACKAGE
-        waitForPackage(packageName)
+        //waitForPackage(packageName)
 
         val initialText = device.findObject(By.res(packageName, "textToBeChanged")).text
 
@@ -129,7 +133,7 @@ class ChangeTextTest {
     @Test
     fun testOpenTextInAnotherActivity() {
         val packageName = MODEL_PACKAGE
-        waitForPackage(packageName)
+        //waitForPackage(packageName)
 
         device.findObject(By.res(packageName, "userInput")).text = textToSet
 
